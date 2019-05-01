@@ -1,15 +1,16 @@
 import {actionTypes} from '../actions/action';
+import {updateObject} from '../utilities';
 let initialState={
     result:[]
 }
 let resultStore=(state=initialState,action)=>{
     switch(action.type)
     {
-        case actionTypes.STORE:state={...state,result:state.result.concat({id:new Date(),value:action.counter})};  
-                                return state
+        case actionTypes.STORE: return updateObject(state,{result:state.result.concat({id:new Date(),value:action.counter})}) 
+                                
         case actionTypes.DELETE_RESULT:let newState=state.result.filter((result)=>result.id!==action.rid);
-                                        state={...state,result:newState};
-                                        return state;             
+                                       return updateObject(state,{result:newState});
+                                                    
         default: return state
     }
 }
